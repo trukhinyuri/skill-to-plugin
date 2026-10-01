@@ -4,7 +4,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "skill-to-plugin"
-version = "0.1.0"
+version = "0.1.1"
 description = "Evidence-driven skill compiler and learning workflow for Codex plugins"
 requires-python = ">=3.11"
 license = "MIT"

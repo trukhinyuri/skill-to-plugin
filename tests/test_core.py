@@ -101,6 +101,14 @@ class CompilerTests(unittest.TestCase):
         self.build(source)
         self.assertFalse(marker.exists())
 
+    def test_inspection_reports_host_paths_in_scripts_and_configuration(self):
+        source = self.skill()
+        (source / "worker.py").write_text("path = '/home/example/input.csv'\n")
+        (source / "settings.json").write_text('{"input": "~/private/input.csv"}')
+        paths = inspect([source])["skills"][0]["absolutePathsToReview"]
+        self.assertTrue(any(p.startswith("/home/example/") for p in paths))
+        self.assertTrue(any(p.startswith("~/private/") for p in paths))
+
     def test_rejects_symlink_and_credential_input(self):
         source = self.skill()
         (source / "link").symlink_to(source / "SKILL.md")

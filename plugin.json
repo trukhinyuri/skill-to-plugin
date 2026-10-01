@@ -1,6 +1,6 @@
 {
   "name": "skill-to-plugin",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "Turn skills into complete Codex plugins, implement their behavior, and improve them through measured local feedback.",
   "author": {
     "name": "Yuri Trukhin"

@@ -71,19 +71,21 @@ def _safe_path(path: Path, *, exists: bool = True) -> Path:
     return path
 
 
-def _store(path: Path) -> Path:
+def _store(path: Path, *, create: bool = True) -> Path:
     path = _safe_path(path, exists=False)
     if path.name != ".skill-to-plugin":
         raise ValueError("Evidence store must be named .skill-to-plugin")
     forbidden = {".codex", ".agents", ".cache", "cache", "caches"}
     if any(part.lower() in forbidden for part in path.parent.parts):
         raise ValueError("Evidence store cannot be an installed cache or global instructions")
-    path.mkdir(mode=0o700, exist_ok=True)
+    if create:
+        path.mkdir(mode=0o700, exist_ok=True)
     if not path.is_dir():
         raise ValueError("Evidence store must be a directory")
     for name in ("events", "evaluations", "promotions", "rollbacks"):
         child = _safe_path(path / name, exists=False)
-        child.mkdir(mode=0o700, exist_ok=True)
+        if create:
+            child.mkdir(mode=0o700, exist_ok=True)
         if not child.is_dir():
             raise ValueError("Unsafe evidence store")
     return path
@@ -176,7 +178,10 @@ def _sign(store: Path, record: dict) -> dict:
 def _verified(store: Path, path: Path) -> dict:
     record = _json_read(path)
     signature = record.pop("signature", None)
-    expected = hmac.new(_key(store), _canonical(record), hashlib.sha256).hexdigest()
+    key = _read_bytes(store / ".record-key", 32)
+    if len(key) != 32:
+        raise ValueError("Invalid local record key")
+    expected = hmac.new(key, _canonical(record), hashlib.sha256).hexdigest()
     if not isinstance(signature, str) or not hmac.compare_digest(signature, expected):
         raise ValueError("Record integrity check failed")
     return record
@@ -311,7 +316,7 @@ def lessons(store: Path) -> list[dict]:
     path = _safe_path(store, exists=False)
     if not path.exists():
         return []
-    store = _store(store)
+    store = _store(store, create=False)
     grouped: dict[str, dict] = {}
     with _lock(store):
         if sum(1 for _ in (store / "events").iterdir()) > MAX_EVENTS:

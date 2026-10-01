@@ -165,10 +165,15 @@ def inspect(sources: list[str | Path]) -> dict:
         inventory = files(root)
         links, absolute = [], set()
         for p in inventory:
+            if p.suffix.lower() not in {".md", ".py", ".sh", ".js", ".mjs", ".ts", ".tsx", ".yaml", ".yml", ".json", ".toml", ".txt"}:
+                continue
+            try:
+                text = p.read_text(encoding="utf-8")
+            except UnicodeDecodeError:
+                continue
+            absolute.update(re.findall(r"(?:/Users/|/home/|~/)[^\s`<>\])]+", text))
             if p.suffix.lower() != ".md":
                 continue
-            text = p.read_text(encoding="utf-8")
-            absolute.update(re.findall(r"(?:/Users/|/home/|~/)[^\s`<>\])]+", text))
             for m in markdown_targets(text):
                 target, _ = link_target(p, m[2])
                 if target:
