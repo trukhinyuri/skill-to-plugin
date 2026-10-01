@@ -1,0 +1,39 @@
+{
+  "name": "skill-to-plugin",
+  "version": "0.1.0",
+  "description": "Turn skills into complete Codex plugins, implement their behavior, and improve them through measured local feedback.",
+  "author": {
+    "name": "Yuri Trukhin"
+  },
+  "repository": "https://github.com/trukhinyuri/skill-to-plugin",
+  "homepage": "https://github.com/trukhinyuri/skill-to-plugin",
+  "license": "MIT",
+  "keywords": [
+    "codex",
+    "skills",
+    "plugins",
+    "self-improvement"
+  ],
+  "$schema": "https://agent-plugins.org/schemas/1.0.0/plugin.schema.json",
+  "extensions": {
+    "com.openai": {
+      "interface": {
+        "displayName": "Skill to Plugin",
+        "shortDescription": "Implement skills as tested plugins and learn from verified outcomes",
+        "longDescription": "Compile skill resources, implement missing workflows and tools, evaluate improvement candidates, and promote with rollback.",
+        "developerName": "Yuri Trukhin",
+        "category": "Developer Tools",
+        "capabilities": [
+          "Read",
+          "Write"
+        ],
+        "defaultPrompt": [
+          "Create a complete Codex plugin from these skills.",
+          "Improve this existing plugin using measured feedback.",
+          "Run explicit self-improvement for this project."
+        ],
+        "composerIcon": "./assets/icon.svg"
+      }
+    }
+  }
+}

@@ -1,0 +1,16 @@
+{
+  "formatVersion": 1,
+  "goal": "Replace with the user's observable outcome",
+  "clients": ["Codex CLI", "Codex Desktop"],
+  "requirements": [
+    {
+      "id": "R1",
+      "requirement": "Replace with a specific in-scope behavior from a source skill",
+      "source": "skill-name/SKILL.md:line",
+      "implementation": [],
+      "scenarios": [],
+      "evidence": [],
+      "status": "unverified"
+    }
+  ]
+}

@@ -1,0 +1,21 @@
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "skill-to-plugin"
+version = "0.1.0"
+description = "Evidence-driven skill compiler and learning workflow for Codex plugins"
+requires-python = ">=3.11"
+license = "MIT"
+authors = [{name = "Yuri Trukhin"}]
+dependencies = []
+
+[project.scripts]
+skill-to-plugin = "skill_to_plugin.cli:main"
+
+[tool.setuptools]
+package-dir = {"" = "runtime"}
+
+[tool.setuptools.packages.find]
+where = ["runtime"]

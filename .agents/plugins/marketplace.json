@@ -1,0 +1,20 @@
+{
+  "name": "skill-to-plugin",
+  "interface": {
+    "displayName": "Skill to Plugin"
+  },
+  "plugins": [
+    {
+      "name": "skill-to-plugin",
+      "source": {
+        "source": "local",
+        "path": "./"
+      },
+      "policy": {
+        "installation": "AVAILABLE",
+        "authentication": "ON_INSTALL"
+      },
+      "category": "Developer Tools"
+    }
+  ]
+}

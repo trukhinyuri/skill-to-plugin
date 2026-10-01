@@ -1,0 +1,12 @@
+{
+  "mcpServers": {
+    "skill_to_plugin": {
+      "command": "python3",
+      "args": [
+        "${PLUGIN_ROOT}/scripts/stp.py",
+        "mcp"
+      ],
+      "cwd": "${PLUGIN_ROOT}"
+    }
+  }
+}

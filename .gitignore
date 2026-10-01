@@ -1,0 +1,9 @@
+__pycache__/
+*.py[cod]
+.skill-to-plugin/
+.venv/
+dist/
+build/
+*.egg-info/
+.DS_Store
+work/
